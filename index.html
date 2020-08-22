@@ -10,18 +10,24 @@
 <body>
 <svg width="700" height="500"></svg>
 <script>
-    const svg=d3.select("svg"), padding=200;
+const svg=d3.select("svg"), padding=200;
 const width=svg.attr("width")-padding, height=svg.attr("height")-padding;
 const g=svg.append("g").attr("transform","translate("+ 100 +","+ 100 +")");
             
 fetch("https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/cyclist-data.json")
    .then(response=>response.json())
    .then(data=>{
-    const xScale = d3.scaleTime().domain([d3.min(data.map(d=>new Date(d.Year))), d3.max(data.map(d=>new Date(d.Year)))]).range([0, width]);
-    g.append("g").attr("id","x-axis").attr("transform","translate(0, "+ height +")").call(d3.axisBottom(xScale).ticks(10).tickFormat(d3.format("d")));
+    const xScale = d3.scaleTime()
+                     .domain([d3.min(data.map(d=>new Date(d.Year-1))), d3.max(data.map(d=>new Date(d.Year + 1)))])
+                     .range([0, width]);
+    g.append("g").attr("id","x-axis")
+                 .attr("transform","translate(0, "+ height +")")
+                 .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
 
-    const yScale=d3.scaleLinear().domain([d3.min(data.map(d=>new Date(d.Time))), d3.max(data.map(d=>new Date(d.Time)))]).range([height, 0]);
-    g.append("g").attr("id","y-axis").call(d3.axisLeft(yScale))
+    const yScale=d3.scaleTime()
+                   .domain([d3.min(data.map(d=>new Date(d.Time))), d3.max(data.map(d=>new Date(d.Time)))])
+                   .range([height, 0]);
+    g.append("g").attr("id","y-axis").call(d3.axisLeft(yScale))//.tickFormat(d3.timeFormat("%M:%S")))
 //                .append("text")
 //                .attr("transform", "rotate(-90)")
 //                .attr("y", 95)
