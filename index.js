@@ -6,14 +6,14 @@ fetch("https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/maste
    .then(response=>response.json())
    .then(data=>{
     const xScale = d3.scaleTime()
-                     .domain([d3.min(data.map(d=>new Date(d.Year-1))), d3.max(data.map(d=>new Date(d.Year+ 1)))])
+                     .domain([d3.min(data, d=>new Date(d.Year)), d3.max(data, d=>new Date(d.Year))])
                      .range([0, width]);
     g.append("g").attr("id","x-axis")
                  .attr("transform","translate(0, "+ height +")")
                  .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
 
     const yScale=d3.scaleTime()
-                   .domain([d3.min(data.map(d=>new Date(`2000 01 01 00:${d.Time}`))), d3.max(data.map(d=>new Date(`2000 01 01 00:${d.Time}`)))])
+                   .domain([d3.min(data, d=>new Date(`2000 01 01 00:${d.Time}`)), d3.max(data, d=>new Date(`2000 01 01 00:${d.Time}`))])
                    .range([0, height]);
     g.append("g").attr("id","y-axis").call(d3.axisLeft(yScale).tickFormat(d3.timeFormat("%M:%S")));
 
@@ -26,14 +26,15 @@ fetch("https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/maste
         .attr("font-size", "24px")
         .text("Doping in Professional Bicycle Racing");
 
-//                .append("text")
-//                .attr("transform", "rotate(-90)")
-//                .attr("y", 95)
-//                .attr("dy", "-5.1em")
-//                .attr("text-anchor", "end")
-//                .attr("stroke", "black")
-//                .style("font-size", "15px")
-//                .text("Gross Domestic Product");
+    svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -120)
+        .attr("y", 130)
+        .attr("dy", "-5.1em")
+        .attr("text-anchor", "end")
+        .attr("stroke", "black")
+        .style("font-size", "15px")
+        .text("Time in Minutes");
  
 // const tooltip=d3.select("body").append("div").attr("class","tooltip").attr("id", "tooltip").style("opacity", 0);
   
@@ -42,13 +43,11 @@ fetch("https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/maste
             .enter()
             .append("circle")
             .attr("class","dot")
-            .attr("cx", (d, i)=>xScale(new Date(d.Year)))
+            .attr("cx", d=>xScale(new Date(d.Year)))
             .attr("cy", d=>yScale(new Date(`2000 01 01 00:${d.Time}`)))
             .attr("r", 5)
-            // // .attr("width", barWidth)
-            // .attr("height", d=>height - yScale(d[1]))
-            .attr("data-xvalue", d=>new Date(d.Year))
-            .attr("data-yvalue", d=>new Date(d.Time))
+            .attr("data-xvalue", d=>xScale(new Date(d.Year)))
+            .attr("data-yvalue", d=>yScale(new Date(`2000 01 01 00:${d.Time}`)))
 //             .on("mouseover", d => { 
 //              tooltip.style("opacity", 0.9);
 //              tooltip.attr("data-date", d[0]);
