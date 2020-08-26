@@ -6,7 +6,7 @@ fetch("https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/maste
    .then(response=>response.json())
    .then(data=>{
     const xScale = d3.scaleTime()
-                     .domain([d3.min(data, d=>new Date(d.Year)), d3.max(data, d=>new Date(d.Year))])
+                     .domain([d3.min(data, d=>new Date(d.Year-1)), d3.max(data, d=>new Date(d.Year+1))])
                      .range([0, width]);
     g.append("g").attr("id","x-axis")
                  .attr("transform","translate(0, "+ height +")")
@@ -25,7 +25,7 @@ fetch("https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/maste
         .attr("y", -15)
         .attr("font-size", "24px")
         .text("Doping in Professional Bicycle Racing");
-
+    //Time in Minutes
     svg.append("text")
         .attr("transform", "rotate(-90)")
         .attr("x", -120)
@@ -35,8 +35,8 @@ fetch("https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/maste
         .attr("stroke", "black")
         .style("font-size", "15px")
         .text("Time in Minutes");
- 
-// const tooltip=d3.select("body").append("div").attr("class","tooltip").attr("id", "tooltip").style("opacity", 0);
+
+        const tooltip=d3.select("body").append("div").attr("class","tooltip").attr("id", "tooltip").style("opacity", 0);
   
            g.selectAll("circle")
             .data(data)
@@ -48,17 +48,14 @@ fetch("https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/maste
             .attr("r", 5)
             .attr("data-xvalue", d=>xScale(new Date(d.Year)))
             .attr("data-yvalue", d=>yScale(new Date(`2000 01 01 00:${d.Time}`)))
-//             .on("mouseover", d => { 
-//              tooltip.style("opacity", 0.9);
-//              tooltip.attr("data-date", d[0]);
-//              tooltip.html("Date "+ d[0] + '<br /> ' +"$ "+d[1])
-//             .style("left", d3.event.pageX + "px")
-//             .style("top", d3.event.pageY - 28 + "px");
-//       })   
-//       .on("mouseout", d => {
-//         tooltip.style("opacity", 0);
-//       });
-  
-  
-
+            .on("mouseover", d => { 
+             tooltip.style("opacity", 0.9);
+             tooltip.attr("data-year", xScale(new Date(d.Year)));
+             tooltip.html("Year: "+ d.Year + ', Time: ' +d.Time)
+            .style("left", d3.event.pageX + "px")
+            .style("top", d3.event.pageY - 28 + "px");
+            })   
+            .on("mouseout", d => {
+             tooltip.style("opacity", 0);
+            });
      });

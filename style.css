@@ -26,8 +26,10 @@ svg{
 
 .tooltip {
     background-color: #eee;
-    border-left:5px solid #8f8779;
-    border-right:5px solid #8f8779;
+    border-left:6px solid #8f8779;
+    border-right:6px solid #8f8779;
+    border-top:2px solid #8f8779;
+    border-bottom:2px solid #8f8779;
     position: absolute;
     opacity: 0;
     color:black;
