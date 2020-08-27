@@ -12,23 +12,11 @@ body{
 
 svg{
     background-color:#eee;
-    /* box-shadow:2px 2px 2px 2px #cecece; */
     border-left:15px solid #8f8779;
     border-right:15px solid #8f8779;
     border-top:2px solid #8f8779;
     border-bottom:2px solid #8f8779;
     border-radius: 10px;
-    
-    
-}
-
-.bar{
-    fill:#E9967A;
-}
-
-.bar:hover{
-    fill:white;
-    opacity: 0.5;
 }
 
 .tooltip {
@@ -45,5 +33,4 @@ svg{
     pointer-events: none;
     text-align: left;
     border-radius: 10px;
-    
   }
