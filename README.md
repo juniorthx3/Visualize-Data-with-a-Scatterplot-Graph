@@ -1,2 +1,10 @@
 # Visualize-Data-with-a-Scatterplot-Graph
-FreeCodeCamp Project
+
+## FreeCodeCamp D3 Project
+
+
+This has been developed using HTML, CSS & D3
+
+Click here to check: https://juniorthx3.github.io/Visualize-Data-with-a-Bar-Chart/
+
+![Project pic](project.PNG)
