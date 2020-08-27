@@ -12,7 +12,14 @@ body{
 
 svg{
     background-color:#eee;
-    box-shadow:2px 2px 2px 2px #cecece;
+    /* box-shadow:2px 2px 2px 2px #cecece; */
+    border-left:15px solid #8f8779;
+    border-right:15px solid #8f8779;
+    border-top:2px solid #8f8779;
+    border-bottom:2px solid #8f8779;
+    border-radius: 10px;
+    
+    
 }
 
 .bar{
@@ -36,7 +43,7 @@ svg{
     font-size: 15px;
     padding: 10px;
     pointer-events: none;
-    text-align: center;
+    text-align: left;
     border-radius: 10px;
     
   }
